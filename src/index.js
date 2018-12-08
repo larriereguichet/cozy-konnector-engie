@@ -167,6 +167,11 @@ function fetchBills(fields, _) {
         bill.numeroFacture +
         '.pdf'
       let billDate = new Date(bill.dateFacture)
+      let refund = false
+
+      if (bill.montantTTC.montant < 0) {
+        refund = true
+      }
 
       bills.push({
         subtype: bill.libelle,
@@ -185,7 +190,8 @@ function fetchBills(fields, _) {
           '-' +
           bill.dateFacture +
           '.pdf',
-        vendorRef: bill.numeroFacture
+        vendorRef: bill.numeroFacture,
+        refund: refund
       })
     })
 
